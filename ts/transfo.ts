@@ -56,7 +56,7 @@ export let drag = (element: HTMLElement
   , Pt_coord_element: SVGPoint
   , Pt_coord_parent: SVGPoint
 ) => {
-  var resMatrix : SVGMatrix
+  var resMatrix : SVGMatrix = svg.createSVGMatrix();
   resMatrix.a = originalMatrix.a;
   resMatrix.b = originalMatrix.b;
   resMatrix.c = originalMatrix.c;
@@ -74,13 +74,27 @@ export let rotozoom = (element: HTMLElement
   , Pt2_coord_element: SVGPoint
   , Pt2_coord_parent: SVGPoint
 ) => {
-  var resMatrix : SVGMatrix
+  var resMatrix : SVGMatrix = svg.createSVGMatrix();
   var dx_element  : number = Pt2_coord_element.x - Pt1_coord_element.x;
   var dy_element : number = Pt2_coord_element.y - Pt1_coord_element.y;
   var dx_parent : number = Pt2_coord_parent.x - Pt1_coord_parent.x;
   var dy_parent : number = Pt2_coord_parent.y - Pt1_coord_parent.y;
-  var s : number = (dy_parent / dy_element - dx_parent / dx_element) / (dy_element / dy_element - dx_element / dx_element);
-  var c : number = (dx_parent + s * dy_element) / dx_element;
+  var s : number;
+  var c : number;
+  if (dx_element === 0){
+      if(dy_element === 0){
+        return;
+    } else {
+        s = - dx_parent / dy_element;
+        c = dy_parent / dy_element;
+    }
+  }else if (dy_element === 0){
+    s = dy_parent / dx_element;
+    c = dx_parent / dx_element;
+  }else{
+    s = (dy_parent / dy_element - dx_parent / dx_element) / (dy_element / dy_element - dx_element / dx_element);
+    c = (dx_parent + s * dy_element) / dx_element;
+  }
   resMatrix.a = c;
   resMatrix.b = s;
   resMatrix.c = -s;

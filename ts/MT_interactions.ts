@@ -1,5 +1,5 @@
 import { FSM } from "./FSM";
-import * as transfo from "./transfo";
+import {drag, getMatrixFromElement, getMatrixFromString, getPoint} from "./transfo";
 
 function multiTouch(element: HTMLElement) : void {
     let pointerId_1 : number, Pt1_coord_element : SVGPoint, Pt1_coord_parent : SVGPoint,
@@ -25,7 +25,8 @@ function multiTouch(element: HTMLElement) : void {
                 useCapture: false,
                 action: (evt : TouchEvent) : boolean => {
                     /* TODO */
-                    Pt1_coord_element = new DOMPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY, 0, 0);
+                    originalMatrix = getMatrixFromElement(element);
+                    Pt1_coord_element = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY).matrixTransform(originalMatrix.inverse());
                     console.log("PRESSED : Pt1_coord_element.x = " + Pt1_coord_element.x + "; Pt1_coord_element.y = " + Pt1_coord_element.y);
                     return true;
                 }
@@ -38,8 +39,10 @@ function multiTouch(element: HTMLElement) : void {
                     evt.preventDefault();
                     evt.stopPropagation();
                     /* TODO */
-                    Pt1_coord_parent = new DOMPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY, 0, 0)
+                    Pt1_coord_parent = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY);
                     console.log("DRAG : Pt1_coord_parent.x = " + Pt1_coord_parent.x + "; Pt1_coord_parent.y = " + Pt1_coord_parent.y);
+
+                    drag(element, originalMatrix,Pt1_coord_element, Pt1_coord_parent);
                     return true;
                 }
             },
