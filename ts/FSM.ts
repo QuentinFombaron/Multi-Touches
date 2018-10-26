@@ -70,7 +70,7 @@ export class FSM {
         const changeState : boolean = this.currentState !== state;
         if(this.currentState && changeState) {this.currentState.disable();}
         this.currentState = state || this.currentState;
-        if(this.currentState && changeState) {this.currentState.enable ();}
+        if(this.currentState && changeState) {this.currentState.enable();}
         return this;
     }
     public static parse<T>( serializedFSM: FSMSerialized<T> ) : FSM {

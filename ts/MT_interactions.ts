@@ -25,6 +25,8 @@ function multiTouch(element: HTMLElement) : void {
                 useCapture: false,
                 action: (evt : TouchEvent) : boolean => {
                     /* TODO */
+                    Pt1_coord_element = new DOMPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY, 0, 0);
+                    console.log("PRESSED : Pt1_coord_element.x = " + Pt1_coord_element.x + "; Pt1_coord_element.y = " + Pt1_coord_element.y);
                     return true;
                 }
             },
@@ -36,6 +38,8 @@ function multiTouch(element: HTMLElement) : void {
                     evt.preventDefault();
                     evt.stopPropagation();
                     /* TODO */
+                    Pt1_coord_parent = new DOMPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY, 0, 0)
+                    console.log("DRAG : Pt1_coord_parent.x = " + Pt1_coord_parent.x + "; Pt1_coord_parent.y = " + Pt1_coord_parent.y);
                     return true;
                 }
             },
@@ -46,6 +50,7 @@ function multiTouch(element: HTMLElement) : void {
                 useCapture: true,
                 action: (evt : TouchEvent) : boolean => {
                     /* TODO */
+                    console.log("RELEASED");
                     return true;
                 }
             },
