@@ -56,7 +56,7 @@ export let drag = (element: HTMLElement
   , Pt_coord_element: SVGPoint
   , Pt_coord_parent: SVGPoint
 ) => {
-  var resMatrix : SVGMatrix
+  var resMatrix : SVGMatrix = svg.createSVGMatrix();
   resMatrix.a = originalMatrix.a;
   resMatrix.b = originalMatrix.b;
   resMatrix.c = originalMatrix.c;
@@ -74,7 +74,7 @@ export let rotozoom = (element: HTMLElement
   , Pt2_coord_element: SVGPoint
   , Pt2_coord_parent: SVGPoint
 ) => {
-  var resMatrix : SVGMatrix
+  var resMatrix : SVGMatrix = svg.createSVGMatrix();
   var dx_element = Pt2_coord_element.x - Pt1_coord_element.x;
   var dy_element = Pt2_coord_element.y - Pt1_coord_element.y;
   var dx_parent = Pt2_coord_parent.x - Pt1_coord_parent.x;
