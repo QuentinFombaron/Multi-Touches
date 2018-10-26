@@ -63,12 +63,12 @@ export let drag = (element: HTMLElement
   resMatrix.d = originalMatrix.d;
   resMatrix.e = Pt_coord_parent.x - originalMatrix.a * Pt_coord_element.x - originalMatrix.c * Pt_coord_element.y;
   resMatrix.f = Pt_coord_parent.y - originalMatrix.b * Pt_coord_element.x - originalMatrix.d * Pt_coord_element.y;
+
   setMatrixToElement(element,resMatrix);
 };
 
 //______________________________________________________________________________________________________________________
 export let rotozoom = (element: HTMLElement
-  , originalMatrix: SVGMatrix // /!\ POURQUOI ON NE S4EN SERT PAS ?
   , Pt1_coord_element: SVGPoint
   , Pt1_coord_parent: SVGPoint
   , Pt2_coord_element: SVGPoint
@@ -95,11 +95,13 @@ export let rotozoom = (element: HTMLElement
     s = (dy_parent / dy_element - dx_parent / dx_element) / (dy_element / dy_element - dx_element / dx_element);
     c = (dx_parent + s * dy_element) / dx_element;
   }
+
   resMatrix.a = c;
   resMatrix.b = s;
   resMatrix.c = -s;
   resMatrix.d = c;
   resMatrix.e = Pt1_coord_parent.x - c * Pt1_coord_element.x + s * Pt1_coord_element.y;
   resMatrix.f = Pt1_coord_parent.y - s * Pt1_coord_element.x - c * Pt1_coord_element.y;
+
   setMatrixToElement(element,resMatrix);
 };

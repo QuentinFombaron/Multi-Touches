@@ -1,5 +1,5 @@
 import { FSM } from "./FSM";
-import {drag, getMatrixFromElement, getMatrixFromString, getPoint} from "./transfo";
+import {drag, getMatrixFromElement, getMatrixFromString, getPoint, rotozoom} from "./transfo";
 
 function multiTouch(element: HTMLElement) : void {
     let pointerId_1 : number, Pt1_coord_element : SVGPoint, Pt1_coord_parent : SVGPoint,
@@ -24,10 +24,13 @@ function multiTouch(element: HTMLElement) : void {
                 eventName: ["touchstart"],
                 useCapture: false,
                 action: (evt : TouchEvent) : boolean => {
-                    /* TODO */
                     originalMatrix = getMatrixFromElement(element);
-                    Pt1_coord_element = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY).matrixTransform(originalMatrix.inverse());
-                    console.log("PRESSED : Pt1_coord_element.x = " + Pt1_coord_element.x + "; Pt1_coord_element.y = " + Pt1_coord_element.y);
+
+                    if (evt.touches.length === 1) {
+                        Pt1_coord_element = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY).matrixTransform(originalMatrix.inverse());
+                        console.log("PRESSED 1");
+                    }
+
                     return true;
                 }
             },
@@ -38,11 +41,14 @@ function multiTouch(element: HTMLElement) : void {
                 action: (evt : TouchEvent) : boolean => {
                     evt.preventDefault();
                     evt.stopPropagation();
-                    /* TODO */
-                    Pt1_coord_parent = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY);
-                    console.log("DRAG : Pt1_coord_parent.x = " + Pt1_coord_parent.x + "; Pt1_coord_parent.y = " + Pt1_coord_parent.y);
+
+                    if (evt.touches.length === 1) {
+                        Pt1_coord_parent = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY);
+                        console.log("DRAG 1");
+                    }
 
                     drag(element, originalMatrix,Pt1_coord_element, Pt1_coord_parent);
+
                     return true;
                 }
             },
@@ -52,8 +58,8 @@ function multiTouch(element: HTMLElement) : void {
                 eventName: ["touchend"],
                 useCapture: true,
                 action: (evt : TouchEvent) : boolean => {
-                    /* TODO */
-                    console.log("RELEASED");
+                    console.log("RELEASED 1");
+
                     return true;
                 }
             },
@@ -63,6 +69,14 @@ function multiTouch(element: HTMLElement) : void {
                 useCapture: false,
                 action: (evt : TouchEvent) : boolean => {
                     /* TODO */
+                    if (evt.touches.length === 2) {
+                        Pt1_coord_element = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY).matrixTransform(originalMatrix.inverse());
+
+                        Pt2_coord_element = getPoint(evt.touches.item(1).clientX, evt.touches.item(1).clientY).matrixTransform(originalMatrix.inverse());
+
+                        console.log("PRESSED 2");
+                    }
+
                     return true;
                 }
             },
@@ -74,6 +88,16 @@ function multiTouch(element: HTMLElement) : void {
                     evt.preventDefault();
                     evt.stopPropagation();
                     /* TODO */
+                    if (evt.touches.length === 2){
+                        Pt1_coord_parent = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY);
+
+                        Pt2_coord_parent = getPoint(evt.touches.item(1).clientX, evt.touches.item(1).clientY);
+
+                        console.log("DRAG 2");
+                    }
+
+                    rotozoom(element,Pt1_coord_element, Pt1_coord_parent, Pt2_coord_element, Pt2_coord_parent);
+
                     return true;
                 }
             },
@@ -85,6 +109,7 @@ function multiTouch(element: HTMLElement) : void {
                 action: (evt : TouchEvent) : boolean => {
                     const touch = getRelevantDataFromEvent(evt);
                     /* TODO */
+
                     return true;
                 }
             }
