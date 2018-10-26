@@ -68,19 +68,19 @@ export let drag = (element: HTMLElement
 
 //______________________________________________________________________________________________________________________
 export let rotozoom = (element: HTMLElement
-  , originalMatrix: SVGMatrix // /!\ POURQUOI ON NE S4EN SERT PAS ?  
+  , originalMatrix: SVGMatrix // /!\ POURQUOI ON NE S4EN SERT PAS ?
   , Pt1_coord_element: SVGPoint
   , Pt1_coord_parent: SVGPoint
   , Pt2_coord_element: SVGPoint
   , Pt2_coord_parent: SVGPoint
 ) => {
   var resMatrix : SVGMatrix
-  var dx_element = Pt2_coord_element.x - Pt1_coord_element.x;
-  var dy_element = Pt2_coord_element.y - Pt1_coord_element.y;
-  var dx_parent = Pt2_coord_parent.x - Pt1_coord_parent.x;
-  var dy_parent = Pt2_coord_parent.y - Pt1_coord_parent.y;
-  var s = (dy_parent / dy_element - dx_parent / dx_element) / (dy_element / dy_element - dx_element / dx_element);
-  var c = (dx_parent + s * dy_element) / dx_element;
+  var dx_element  : number = Pt2_coord_element.x - Pt1_coord_element.x;
+  var dy_element : number = Pt2_coord_element.y - Pt1_coord_element.y;
+  var dx_parent : number = Pt2_coord_parent.x - Pt1_coord_parent.x;
+  var dy_parent : number = Pt2_coord_parent.y - Pt1_coord_parent.y;
+  var s : number = (dy_parent / dy_element - dx_parent / dx_element) / (dy_element / dy_element - dx_element / dx_element);
+  var c : number = (dx_parent + s * dy_element) / dx_element;
   resMatrix.a = c;
   resMatrix.b = s;
   resMatrix.c = -s;
