@@ -27,6 +27,7 @@ function multiTouch(element: HTMLElement): void {
                 eventName: ["touchstart"],
                 useCapture: false,
                 action: (evt: TouchEvent): boolean => {
+                    /* Set the pointerIds */
                     pointerId_1 = 0;
                     pointerId_2 = 1;
 
