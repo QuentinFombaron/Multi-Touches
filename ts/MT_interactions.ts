@@ -58,8 +58,6 @@ function multiTouch(element: HTMLElement) : void {
                 eventName: ["touchend"],
                 useCapture: true,
                 action: (evt : TouchEvent) : boolean => {
-                    console.log("RELEASED 1");
-
                     return true;
                 }
             },
@@ -70,9 +68,7 @@ function multiTouch(element: HTMLElement) : void {
                 action: (evt : TouchEvent) : boolean => {
                     /* TODO */
                     if (evt.touches.length === 2) {
-                        Pt1_coord_element = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY).matrixTransform(originalMatrix.inverse());
-
-                        Pt2_coord_element = getPoint(evt.touches.item(1).clientX, evt.touches.item(1).clientY).matrixTransform(originalMatrix.inverse());
+                        Pt2_coord_element = getPoint(getRelevantDataFromEvent(evt).clientX, getRelevantDataFromEvent(evt).clientY).matrixTransform(originalMatrix.inverse());
 
                         console.log("PRESSED 2");
                     }
@@ -89,14 +85,12 @@ function multiTouch(element: HTMLElement) : void {
                     evt.stopPropagation();
                     /* TODO */
                     if (evt.touches.length === 2){
-                        Pt1_coord_parent = getPoint(evt.touches.item(0).clientX, evt.touches.item(0).clientY);
-
-                        Pt2_coord_parent = getPoint(evt.touches.item(1).clientX, evt.touches.item(1).clientY);
+                        Pt2_coord_parent = getPoint(getRelevantDataFromEvent(evt).clientX, getRelevantDataFromEvent(evt).clientY);
 
                         console.log("DRAG 2");
-                    }
 
-                    rotozoom(element,Pt1_coord_element, Pt1_coord_parent, Pt2_coord_element, Pt2_coord_parent);
+                        rotozoom(element,Pt1_coord_element, Pt1_coord_parent, Pt2_coord_element, Pt2_coord_parent);
+                    }
 
                     return true;
                 }
@@ -108,8 +102,6 @@ function multiTouch(element: HTMLElement) : void {
                 useCapture: true,
                 action: (evt : TouchEvent) : boolean => {
                     const touch = getRelevantDataFromEvent(evt);
-                    /* TODO */
-
                     return true;
                 }
             }
