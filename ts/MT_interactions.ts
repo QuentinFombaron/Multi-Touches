@@ -49,7 +49,7 @@ function multiTouch(element: HTMLElement): void {
                 eventName: ["touchmove"],
                 useCapture: true,
                 action: (evt: TouchEvent): boolean => {
-                    evt.preventDefault();
+                    //evt.preventDefault();
                     evt.stopPropagation();
 
                     let touch: Touch = getRelevantDataFromEvent(evt);
@@ -95,7 +95,7 @@ function multiTouch(element: HTMLElement): void {
                 eventName: ["touchmove"],
                 useCapture: true,
                 action: (evt: TouchEvent): boolean => {
-                    evt.preventDefault();
+                    //evt.preventDefault();
                     evt.stopPropagation();
 
                     let touch: Touch = getRelevantDataFromEvent(evt);
