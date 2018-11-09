@@ -127,6 +127,10 @@ function multiTouch(element: HTMLElement): void {
 
                     let touch: Touch = getRelevantDataFromEvent(evt);
 
+                    if (touch.identifier === pointerId_1) {
+                        Pt1_coord_element = Pt2_coord_element;
+                    }
+
                     Pt1_coord_parent = getPoint(touch.pageX, touch.pageY);
 
                     console.log("PRESSED 1");
