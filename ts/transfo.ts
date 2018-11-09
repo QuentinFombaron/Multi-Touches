@@ -93,7 +93,7 @@ export let rotozoom = (element: HTMLElement
     s = dy_parent / dx_element;
     c = dx_parent / dx_element;
   } else{
-    s = (dy_parent / dy_element - dx_parent / dx_element) / (dy_element / dy_element - dx_element / dx_element);
+    s = (dy_parent / dy_element - dx_parent / dx_element) / (dy_element / dx_element + dx_element / dy_element);
     c = (dx_parent + s * dy_element) / dx_element;
   }
 
