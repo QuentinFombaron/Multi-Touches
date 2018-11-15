@@ -38,7 +38,6 @@ function multiTouch(element: HTMLElement): void {
                     Pt1_coord_element = getPoint(touch.pageX, touch.pageY).matrixTransform(originalMatrix.inverse());
                     Pt1_coord_parent = getPoint(touch.pageX, touch.pageY);
 
-
                     console.log("PRESSED 1");
 
                     return true;
@@ -143,9 +142,6 @@ function multiTouch(element: HTMLElement): void {
     fsm.start();
 }
 
-//______________________________________________________________________________________________________________________
-//______________________________________________________________________________________________________________________
-//______________________________________________________________________________________________________________________
 function isString(s: any): boolean {
     return typeof(s) === "string" || s instanceof String;
 }
